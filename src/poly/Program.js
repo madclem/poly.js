@@ -1,33 +1,112 @@
 export default class Program
 {
-    constructor(vertShader, fragShader)
+    constructor(vertShader, fragShader, uniforms)
     {
-        let gl = POLY.gl;
+        let gl = POLY.gl; // not sure that's great... :p
         this.gl = gl;
+            
+        // cache the locations of attributes and uniforms
+        this.cacheAttributesLocation = {}
+        this.cacheUniformsLocation = {}
 
-
-
-        let program = gl.createProgram();
-        this.program = program;
+        // create the program itself
+        this.program = gl.createProgram();
 
         let vert = this._createShader(vertShader, true);
         let frag = this._createShader(fragShader, false);
-
         this._attachShaders(vert, frag);
-        gl.linkProgram(program);
 
-        if (!gl.getProgramParameter(program, gl.LINK_STATUS))
+        gl.linkProgram(this.program);
+
+        // check for errors
+        if (!gl.getProgramParameter(this.program, gl.LINK_STATUS))
         {
             throw "Couldn't initialise program";
         }
 
-        gl.useProgram(program);
+        gl.useProgram(this.program);
 
-        program.vertexPositionAttribute = gl.getAttribLocation(program, "aVertexPosition");
-        gl.enableVertexAttribArray(program.vertexPositionAttribute);
+        for (let uniform in this.uniforms)
+        {
+            this.addUniformLocation(uniform, this.uniforms[uniform]);
+        }
 
-        program.pMatrixUniform = gl.getUniformLocation(program, "uPMatrix");
-        program.mvMatrixUniform = gl.getUniformLocation(program, "uMVMatrix");
+        this._createGetterSetterUniforms(uniforms);
+    }
+
+    addUniformLocation(name, value)
+    {
+        this.cacheUniformsLocation[name] = this.gl.getUniformLocation(this.program, name);
+    }
+
+    getUniformLocation(name)
+    {
+        if(this.cacheUniformsLocation[name] !== undefined)
+        {
+            return this.cacheUniformsLocation[name];
+        }
+        else
+        {
+            this.addUniformLocation(name);
+            
+            return this.getUniformLocation(name);
+        }
+    }
+
+
+    // create a this.uniforms property
+    // useful for the setter, we can just update the uniform when it gets changed
+    _createGetterSetterUniforms(uniforms)
+    {   
+        let gl = this.gl;
+        let program = this.program;
+        let _this = this;
+
+        this.uniforms = new Proxy(uniforms, {
+            get: function(target, name) 
+            {
+                if (!(name in target)) 
+                {
+                    console.log("Getting non-existant property '" + name + "'");
+                    return undefined;
+                }
+
+                return target[name];
+            },
+            set: function(target, name, value) 
+            {
+                if (!(name in target)) 
+                {
+                    console.log("Setting non-existant property '" + name + "', initial value: " + value);
+
+                    return false;
+                }
+                target[name] = value;
+                gl.uniformMatrix4fv(_this.getUniformLocation(name), false, value);
+
+                return true;
+            }
+        });
+    }
+
+    addAttributeLocation(name)
+    {
+        this.cacheAttributesLocation[name] = this.gl.getAttribLocation(this.program, name);
+        this.gl.enableVertexAttribArray(this.cacheAttributesLocation[name]); // NEVER FORGET THAT LINE (I did...)
+    }
+
+    getAttributeLocation(name)
+    {
+        if(this.cacheAttributesLocation[name] !== undefined)
+        {
+            return this.cacheAttributesLocation[name];
+        }
+        else
+        {
+            this.addAttributeLocation(name);
+
+            return this.getAttributeLocation(name);
+        }
     }
 
     _attachShaders(vert, frag)

@@ -1,4 +1,6 @@
 import Program from './poly/Program';
+import Mesh from './poly/geometry/Mesh';
+import GL from './poly/GLTool';
 
 let init = (canvas)=>
 {
@@ -12,8 +14,7 @@ let init = (canvas)=>
 
         POLY.gl = gl;
 
-    } catch (e) {
-    }
+    } 
     if (!gl) {
         alert("Could not initialise WebGL, sorry :-(");
     }
@@ -22,7 +23,9 @@ let init = (canvas)=>
 export
 {
     init,
-    Program
+    Program,
+    Mesh,
+    GL
 }
 
 global.POLY = exports; // eslint-disable-line
