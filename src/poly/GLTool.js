@@ -20,7 +20,6 @@ export default new class GLTool
 		if(mesh.indexBuffer)
 		{
 			gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, mesh.indexBuffer);
-			gl.drawElements(gl.TRIANGLES, mesh._indices.length, gl.UNSIGNED_SHORT, 0);
 		}
 	}
 
@@ -34,7 +33,15 @@ export default new class GLTool
 		}
 
 		let gl = mesh.program.gl;
-		gl.drawArrays(gl.TRIANGLES, 0, mesh._numItems);
+
+		if(mesh.indexBuffer)
+		{
+			gl.drawElements(gl.TRIANGLES, mesh._indices.length, gl.UNSIGNED_SHORT, 0);
+		}
+		else
+		{
+			gl.drawArrays(gl.TRIANGLES, 0, mesh._numItems);
+		}
 
 	}
 }
