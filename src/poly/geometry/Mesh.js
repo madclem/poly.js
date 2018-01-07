@@ -6,8 +6,23 @@ export default class Mesh
 		this.drawType = drawType;
 		this._attributes = [];
 		this._vertices = [];
+		this._indices = [];
 		this._vertexSize = 0;
 		this._numItems = 0;
+		this.indexBuffer = null;
+	}
+
+	addIndices(indices, dynamic)
+	{
+		let gl = this.program.gl;
+		const drawType = dynamic ? gl.DYNAMIC_DRAW : gl.STATIC_DRAW;
+		this._indices = indices;
+
+		this.indexBuffer = gl.createBuffer();
+
+		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
+		gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), drawType);
+
 	}
 
 	addPosition(data, name = 'aPosition')
@@ -15,10 +30,10 @@ export default class Mesh
 		this._vertices = data;
 		this._vertexSize = this._vertices.length;
 		this._numItems = this._vertexSize/3;
-		this.addAttribute(name, data);
+		this.addAttribute(data, name);
 	}
 
-	addAttribute(name, data, itemSize = 3)
+	addAttribute(data, name, itemSize = 3)
 	{
 		let gl = this.program.gl;
 		let buffer = gl.createBuffer();
