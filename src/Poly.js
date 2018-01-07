@@ -1,11 +1,28 @@
-import  App from './poly/App';
-import  Scene from './poly/Scene';
+import Program from './poly/Program';
 
-class Poly {
-    constructor() {
-        this.App = App;
-        this.Scene = Scene;
+let init = (canvas)=>
+{
+
+    let gl;
+
+    try {
+        gl = canvas.getContext("experimental-webgl");
+        gl.viewportWidth = canvas.width;
+        gl.viewportHeight = canvas.height;
+
+        POLY.gl = gl;
+
+    } catch (e) {
+    }
+    if (!gl) {
+        alert("Could not initialise WebGL, sorry :-(");
     }
 }
 
-export default new Poly();
+export
+{
+    init,
+    Program
+}
+
+global.POLY = exports; // eslint-disable-line
