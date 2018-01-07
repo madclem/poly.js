@@ -1,6 +1,7 @@
 import Program from './poly/Program';
 import Mesh from './poly/geometry/Mesh';
 import GL from './poly/GLTool';
+import * as utils from './poly/utils';
 
 let init = (canvas)=>
 {
@@ -26,7 +27,8 @@ export
     init,
     Program,
     Mesh,
-    GL
+    GL,
+    utils
 }
 
 global.POLY = exports; // eslint-disable-line
