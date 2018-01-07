@@ -14,7 +14,8 @@ let init = (canvas)=>
 
         POLY.gl = gl;
 
-    } 
+    } catch (e) {
+    }
     if (!gl) {
         alert("Could not initialise WebGL, sorry :-(");
     }
