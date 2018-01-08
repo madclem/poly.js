@@ -42,6 +42,12 @@ export default new class GLTool
 		{
 			gl.drawArrays(gl.TRIANGLES, 0, mesh._numItems);
 		}
+	}
 
+	resize(w, h)
+	{
+		let gl = POLY.gl;
+		gl.canvas.width = w;
+		gl.canvas.height = h;
 	}
 }
