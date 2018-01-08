@@ -71,7 +71,7 @@ export default class Program
                     return undefined;
                 }
 
-                return target[name];
+                return target[name].value;
             },
             set: function(target, name, value) 
             {
@@ -81,9 +81,11 @@ export default class Program
 
                     return false;
                 }
-                target[name] = value;
-                gl.uniformMatrix4fv(_this.getUniformLocation(name), false, value);
 
+                // /!\ TODO check GLShader.uniform() when it's not a number, seems more optimised
+                target[name].value = value;
+                gl[POLY.CONST.uniformTypes[target[name].type]](_this.getUniformLocation(name), false, value);
+               
                 return true;
             }
         });

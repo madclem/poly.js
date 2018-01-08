@@ -1,1 +1,1 @@
-{"version":3,"sources":["../../../src/poly/utils/index.js"],"names":["loop"],"mappings":";;;;;;;AAAA;;;;;;QAGCA,I","file":"index.js","sourcesContent":["import loop from './Loop';\r\n\r\nexport {\r\n\tloop\r\n}"]}
+{"version":3,"sources":["../../../src/poly/utils/index.js"],"names":["loop","isPowerOfTwo"],"mappings":";;;;;;;AAAA;;;;AACA;;;;;;QAGCA,I;QACAC,Y","file":"index.js","sourcesContent":["import loop from './Loop';\r\nimport isPowerOfTwo from './isPowerOfTwo';\r\n\r\nexport {\r\n\tloop,\r\n\tisPowerOfTwo\r\n}"]}
