@@ -46,6 +46,7 @@
     "babel-preset-es2015-loose": "^8.0.0",
     "babelify": "^7.3.0",
     "eslint": "^3.11.1",
+    "gl-matrix": "^2.3.2",
     "fontfaceobserver": "^2.0.13",
     "parallelshell": "^2.0.0",
     "pixi-sound": "^1.4.2",

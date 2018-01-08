@@ -3,6 +3,7 @@ export default new class GLTool
 	constructor()
 	{
 		this._lastMesh = null;
+		this.aspectRatio = 0;
 
 	}
 
@@ -49,5 +50,7 @@ export default new class GLTool
 		let gl = POLY.gl;
 		gl.canvas.width = w;
 		gl.canvas.height = h;
+
+		this.aspectRatio = w/h;
 	}
 }

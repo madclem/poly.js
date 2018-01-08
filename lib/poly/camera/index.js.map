@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../src/poly/camera/index.js"],"names":["DefaultCamera"],"mappings":";;;;;;AAAA;;;;;;kBAEe;AACdA;AADc,C","file":"index.js","sourcesContent":["import DefaultCamera from './Camera';\r\n\r\nexport default {\r\n\tDefaultCamera\r\n}"]}
