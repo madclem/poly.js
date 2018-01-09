@@ -1,5 +1,5 @@
-import DefaultCamera from './Camera';
+import PerspectiveCamera from './Camera';
 
 export default {
-	DefaultCamera
+	PerspectiveCamera
 }
