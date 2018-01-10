@@ -4,7 +4,7 @@ export default class Program
     {
         let gl = POLY.gl; // not sure that's great... :p
         this.gl = gl;
-            
+        console.log(uniforms)
         // cache the locations of attributes and uniforms
         this.cacheAttributesLocation = {}
         this.cacheUniformsLocation = {}
@@ -26,15 +26,20 @@ export default class Program
 
         gl.useProgram(this.program);
 
-        for (let uniform in this.uniforms)
+        this._createGetterSetterUniforms(uniforms);
+        for (let uniform in uniforms)
         {
-            this.addUniformLocation(uniform, this.uniforms[uniform]);
+            this.addUniformLocation(uniform);
+            console.log(uniform, uniforms, this.uniforms)
+            // uniform = this.uniforms[uniform];
+            // this.uniforms[uniform] = uniforms[uniform]
+            this.uniforms[uniform] = uniforms[uniform];
+
         }
 
-        this._createGetterSetterUniforms(uniforms);
     }
 
-    addUniformLocation(name, value)
+    addUniformLocation(name)
     {
         this.cacheUniformsLocation[name] = this.gl.getUniformLocation(this.program, name);
     }
@@ -82,9 +87,10 @@ export default class Program
                     return false;
                 }
 
+                console.log('here', target, name, value)
                 // /!\ TODO check GLShader.uniform() when it's not a number, seems more optimised
-                target[name].value = value;
-                gl[POLY.CONST.uniformTypes[target[name].type]](_this.getUniformLocation(name), false, value);
+                target[name] = value.value;
+                gl[POLY.CONST.uniformTypes[target[name].type]](_this.getUniformLocation(name), false, value.value);
                
                 return true;
             }
