@@ -15,8 +15,6 @@ let init = (canvas)=>
 
     try {
         gl = canvas.getContext("experimental-webgl");
-        gl.viewportWidth = canvas.width;
-        gl.viewportHeight = canvas.height;
 
         POLY.gl = gl;
         POLY.GL.init(gl);

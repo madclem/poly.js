@@ -62,6 +62,10 @@ export default new class GLTool
 		gl.canvas.width = w;
 		gl.canvas.height = h;
 
+		gl.viewportWidth = w;
+        gl.viewportHeight = h;
+		gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+
 		this.aspectRatio = w/h;
 	}
 }

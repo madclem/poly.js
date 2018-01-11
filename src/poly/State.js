@@ -12,10 +12,8 @@ export default class State
         this.gl = gl;
         this.activeState = new Uint8Array(16);
         this.defaultState = new Uint8Array(16);
-        // this.activeState[BLEND] = 1;
 
         this.data = 0;
-        // this.blend = true;
         this.blendMode = 0;
 
         this.blendModes = {
@@ -84,7 +82,6 @@ export default class State
 
     setState(state)
     {
-        console.log('here');
         this.setBlend(state.activeState[BLEND]);
         this.setDepthTest(state.activeState[DEPTH_TEST]);
         this.setFrontFace(state.activeState[FRONT_FACE]);
