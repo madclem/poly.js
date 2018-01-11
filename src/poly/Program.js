@@ -30,11 +30,10 @@ export default class Program
         for (let uniform in uniforms)
         {
             this.addUniformLocation(uniform);
-            console.log(uniform, uniforms, this.uniforms)
             // uniform = this.uniforms[uniform];
             // this.uniforms[uniform] = uniforms[uniform]
-            this.uniforms[uniform] = uniforms[uniform];
-
+            let v = uniforms[uniform].value;
+            this.uniforms[uniform] = v;
         }
 
     }
@@ -53,7 +52,7 @@ export default class Program
         else
         {
             this.addUniformLocation(name);
-            
+
             return this.getUniformLocation(name);
         }
     }
@@ -62,15 +61,15 @@ export default class Program
     // create a this.uniforms property
     // useful for the setter, we can just update the uniform when it gets changed
     _createGetterSetterUniforms(uniforms)
-    {   
+    {
         let gl = this.gl;
         let program = this.program;
         let _this = this;
 
         this.uniforms = new Proxy(uniforms, {
-            get: function(target, name) 
+            get: function(target, name)
             {
-                if (!(name in target)) 
+                if (!(name in target))
                 {
                     console.log("Getting non-existant property '" + name + "'");
                     return undefined;
@@ -78,20 +77,29 @@ export default class Program
 
                 return target[name].value;
             },
-            set: function(target, name, value) 
+            set: function(target, name, value)
             {
-                if (!(name in target)) 
+                if (!(name in target))
                 {
                     console.log("Setting non-existant property '" + name + "', initial value: " + value);
 
                     return false;
                 }
 
-                console.log('here', target, name, value)
-                // /!\ TODO check GLShader.uniform() when it's not a number, seems more optimised
-                target[name] = value.value;
-                gl[POLY.CONST.uniformTypes[target[name].type]](_this.getUniformLocation(name), false, value.value);
-               
+                // /!\ TODO check Wen's GLShader.uniform() when it's not a number, seems more optimised
+                target[name].value = value;
+                let type = target[name].type;
+                let glFunction = POLY.CONST.uniformTypes[type];
+
+                if(type.indexOf('mat') === -1)
+                {
+                    gl[glFunction](_this.getUniformLocation(name), value);
+                }
+                else
+                {
+                    gl[glFunction](_this.getUniformLocation(name), false, value);
+                }
+
                 return true;
             }
         });
