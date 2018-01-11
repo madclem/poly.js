@@ -1,10 +1,17 @@
+import State from './State';
+
 export default new class GLTool
 {
 	constructor()
 	{
 		this._lastMesh = null;
 		this.aspectRatio = 0;
+		this.state = null;
+	}
 
+	init(gl)
+	{
+		this.state = new State(gl);
 	}
 
 	_bindBuffers(mesh)
@@ -24,7 +31,6 @@ export default new class GLTool
 		}
 	}
 
-
 	draw(mesh)
 	{
 		if(this._lastMesh !== mesh)
@@ -34,6 +40,11 @@ export default new class GLTool
 		}
 
 		let gl = mesh.program.gl;
+
+		if(mesh.state)
+		{
+			this.state.setState(mesh.state);
+		}
 
 		if(mesh.indexBuffer)
 		{

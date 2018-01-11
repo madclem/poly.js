@@ -1,8 +1,11 @@
+import State from '../State';
+
 export default class Mesh
 {
-	constructor(program , drawType = 4)
+	constructor(program , state, drawType = 4)
 	{
 		this.program = program;
+		this.state = state || new State(this.program.gl);
 		this.drawType = drawType;
 		this._attributes = [];
 		this._vertices = [];
@@ -39,7 +42,7 @@ export default class Mesh
 		let buffer = gl.createBuffer();
     	gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
     	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(data), gl.STATIC_DRAW);
-  
+
    		this._attributes.push({
    			name,
    			data,

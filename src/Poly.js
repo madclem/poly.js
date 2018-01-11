@@ -4,6 +4,7 @@ import GL from './poly/GLTool';
 import Texture from './poly/Texture';
 import cameras from './poly/camera';
 import control from './poly/control';
+import State from './poly/State';
 import CONST from './poly/const';
 import * as utils from './poly/utils';
 
@@ -18,6 +19,7 @@ let init = (canvas)=>
         gl.viewportHeight = canvas.height;
 
         POLY.gl = gl;
+        POLY.GL.init(gl);
 
     } catch (e) {
     }
@@ -36,7 +38,8 @@ export
     Texture,
     CONST,
     cameras,
-    control
+    control,
+    State
 }
 
 global.POLY = exports; // eslint-disable-line
