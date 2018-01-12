@@ -1,9 +1,12 @@
 import State from '../State';
+import Object3D from './Object3D';
 
-export default class Mesh
+export default class Mesh extends Object3D
 {
 	constructor(program , state, drawType = 4)
 	{
+		super();
+		
 		this.program = program;
 		this.state = state || new State(this.program.gl);
 		this.drawType = drawType;

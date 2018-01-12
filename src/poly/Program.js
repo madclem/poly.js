@@ -30,8 +30,6 @@ export default class Program
         for (let uniform in uniforms)
         {
             this.addUniformLocation(uniform);
-            // uniform = this.uniforms[uniform];
-            // this.uniforms[uniform] = uniforms[uniform]
             let v = uniforms[uniform].value;
             this.uniforms[uniform] = v;
         }
