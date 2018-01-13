@@ -3,7 +3,7 @@ import FacesMultiplicator from '../../utils/FacesMultiplicator';
 import FacesSeparator from '../../utils/FacesSeparator';
 
 class Cube extends Mesh {
-  constructor(program, state, data = {}, drawType = 4){
+  constructor(program, data={}, state, drawType = 4){
 
     super(program, state, drawType)
 
