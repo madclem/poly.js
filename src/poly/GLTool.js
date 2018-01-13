@@ -32,13 +32,14 @@ export default new class GLTool
 	}
 
 	draw(mesh)
-	{
+	{	
 		if(this._lastMesh !== mesh)
 		{
 			this._bindBuffers(mesh);
 			this._lastMesh = mesh;
 		}
 
+		mesh.update();
 		let gl = mesh.program.gl;
 
 		if(mesh.state)
