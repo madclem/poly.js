@@ -86,7 +86,7 @@ export default class Object3D
                     _this['_' + nameProperty][map[name]] = value;
                     _this._needsUpdate = true;
 
-                    return target[name];
+                    return true;//target[name];
                 }
             });
         }

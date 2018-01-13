@@ -1,5 +1,5 @@
 import Program from './poly/Program';
-import Mesh from './poly/geometry/Mesh';
+import geometry from './poly/geometry';
 import GL from './poly/GLTool';
 import Texture from './poly/Texture';
 import cameras from './poly/camera';
@@ -30,14 +30,14 @@ export
 {
     init,
     Program,
-    Mesh,
     GL,
     utils,
     Texture,
     CONST,
     cameras,
     control,
-    State
+    State,
+    geometry
 }
 
 global.POLY = exports; // eslint-disable-line

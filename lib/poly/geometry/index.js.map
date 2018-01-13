@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../src/poly/geometry/index.js"],"names":["Mesh","Cube"],"mappings":";;;;;;AAAA;;;;AACA;;;;;;kBAEe;AACdA,qBADc;AAEdC;AAFc,C","file":"index.js","sourcesContent":["import Mesh from './Mesh';\r\nimport Cube from './mesh/Cube';\r\n\r\nexport default {\r\n\tMesh,\r\n\tCube\r\n}"]}
