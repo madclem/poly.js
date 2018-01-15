@@ -6,8 +6,8 @@ export default class Texture
 	{
 		this.gl = POLY.gl;
 		let gl = this.gl;
-		
-		this._texture = gl.createTexture();		
+
+		this._texture = gl.createTexture();
 
 		this.image = new Image();
 		this.image.src = image;
@@ -27,7 +27,7 @@ export default class Texture
   		if(POLY.utils.isPowerOfTwo(image.width) && POLY.utils.isPowerOfTwo(image.height))
   		{
   			gl.generateMipmap(gl.TEXTURE_2D);
-  		}      
+  		}
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
         gl.bindTexture(gl.TEXTURE_2D, null);
@@ -36,7 +36,7 @@ export default class Texture
 	bind(index = 0)
 	{
 		let gl = this.gl;
-		gl.activeTexture(gl.TEXTURE0);
+		gl.activeTexture(gl.TEXTURE0 + index);
     	gl.bindTexture(gl.TEXTURE_2D, this._texture);
 	}
 }

@@ -89,9 +89,18 @@ export default class Program
                 let type = target[name].type;
                 let glFunction = POLY.CONST.uniformTypes[type];
 
+
                 if(type.indexOf('mat') === -1)
                 {
-                    gl[glFunction](_this.getUniformLocation(name), value);
+                    if(type === 'texture')
+                    {
+                        console.log('here', target[name].index);
+                        gl[glFunction](_this.getUniformLocation(name), value, target[name].index);
+                    }
+                    else
+                    {
+                        gl[glFunction](_this.getUniformLocation(name), value);
+                    }
                 }
                 else
                 {
