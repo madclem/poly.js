@@ -32,7 +32,7 @@ export default new class GLTool
 	}
 
 	draw(mesh)
-	{	
+	{
 		if(this._lastMesh !== mesh)
 		{
 			this._bindBuffers(mesh);
@@ -49,11 +49,11 @@ export default new class GLTool
 
 		if(mesh.indexBuffer)
 		{
-			gl.drawElements(gl.TRIANGLES, mesh._indices.length, gl.UNSIGNED_SHORT, 0);
+			gl.drawElements(mesh.drawType, mesh._indices.length, gl.UNSIGNED_SHORT, 0);
 		}
 		else
 		{
-			gl.drawArrays(gl.TRIANGLES, 0, mesh._numItems);
+			gl.drawArrays(mesh.drawType, 0, mesh._numItems);
 		}
 	}
 

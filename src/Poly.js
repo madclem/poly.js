@@ -1,5 +1,6 @@
 import Program from './poly/Program';
 import geometry from './poly/geometry';
+import FrameBuffer from './poly/FrameBuffer';
 import GL from './poly/GLTool';
 import Texture from './poly/Texture';
 import cameras from './poly/camera';
@@ -10,19 +11,20 @@ import * as utils from './poly/utils';
 
 let init = (canvas)=>
 {
-
     let gl;
-
-    try {
+    try
+    {
         gl = canvas.getContext("experimental-webgl");
 
         POLY.gl = gl;
         POLY.GL.init(gl);
 
-    } catch (e) {
+    } catch (e)
+    {
     }
+
     if (!gl) {
-        alert("Could not initialise WebGL, sorry :-(");
+        console.warn("Could not initialise WebGL");
     }
 }
 
@@ -37,7 +39,8 @@ export
     cameras,
     control,
     State,
-    geometry
+    geometry,
+    FrameBuffer
 }
 
 global.POLY = exports; // eslint-disable-line

@@ -97,7 +97,6 @@ export default class State
         {
             return;
         }
-        console.log("BLEND");
 
         this.activeState[BLEND] = value;
         this.gl[value ? 'enable' : 'disable'](this.gl.BLEND);
@@ -111,7 +110,6 @@ export default class State
             return;
         }
 
-        console.log('BLENDMODE');
         this.activeState[BLEND_FUNC] = value;
 
         this.gl.blendFunc(this.blendModes.source[source], this.blendModes.dest[dest]);
@@ -135,7 +133,6 @@ export default class State
         {
             return;
         }
-        console.log("DEPTHTEST");
 
         this.activeState[DEPTH_TEST] = value;
         this.gl[value ? 'enable' : 'disable'](this.gl.DEPTH_TEST);
