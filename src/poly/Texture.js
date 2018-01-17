@@ -2,17 +2,24 @@
 
 export default class Texture
 {
-	constructor(image)
+	constructor(image, isTexture)
 	{
 		this.gl = POLY.gl;
 		let gl = this.gl;
 
-		this._texture = gl.createTexture();
+		if(isTexture)
+		{
+			this._texture = image;
+		}
+		else
+		{
+			this._texture = gl.createTexture();
 
-		this.image = new Image();
-		this.image.src = image;
+			this.image = new Image();
+			this.image.src = image;
 
-		this.image.addEventListener('load', this.onImageLoaded.bind(this, this.image))
+			this.image.addEventListener('load', this.onImageLoaded.bind(this, this.image))
+		}
 
 	}
 

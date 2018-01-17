@@ -19,6 +19,8 @@ export default class FrameBuffer
 
         // create an empty texture which can store the colour values
         this.texture = gl.createTexture();
+        this.gltexture = new POLY.Texture(this.texture, true);
+
         gl.bindTexture(gl.TEXTURE_2D, this.texture);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST);
@@ -44,7 +46,7 @@ export default class FrameBuffer
         this.height = h || this.height;
 
         let gl = this.gl;
-        gl.bindFramebuffer(gl.FRAMEBUFFER, this.frameBuffer);
+        gl.bindFramebuffer(gl.FRAMEBUFFER, this.framebuffer);
         gl.viewport(0, 0, this.width, this.height);
     }
 
@@ -57,6 +59,7 @@ export default class FrameBuffer
 
     clean()
     {
+        let gl = this.gl;
         gl.bindTexture(gl.TEXTURE_2D, null);
         gl.bindRenderbuffer(gl.RENDERBUFFER, null);
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);

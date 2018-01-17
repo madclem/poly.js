@@ -4,7 +4,6 @@ export default class Program
     {
         let gl = POLY.gl; // not sure that's great... :p
         this.gl = gl;
-        console.log(uniforms)
         // cache the locations of attributes and uniforms
         this.cacheAttributesLocation = {}
         this.cacheUniformsLocation = {}
@@ -34,6 +33,13 @@ export default class Program
             this.uniforms[uniform] = v;
         }
 
+        this.bind();
+
+    }
+
+    bind()
+    {
+        this.gl.useProgram(this.program);
     }
 
     addUniformLocation(name)
@@ -94,7 +100,6 @@ export default class Program
                 {
                     if(type === 'texture')
                     {
-                        console.log('here', target[name].index);
                         gl[glFunction](_this.getUniformLocation(name), value, target[name].index);
                     }
                     else
@@ -114,8 +119,19 @@ export default class Program
 
     addAttributeLocation(name)
     {
-        this.cacheAttributesLocation[name] = this.gl.getAttribLocation(this.program, name);
-        this.gl.enableVertexAttribArray(this.cacheAttributesLocation[name]); // NEVER FORGET THAT LINE (I did...)
+
+    //     if(shaderProgram.cacheAttribLoc === undefined) {	shaderProgram.cacheAttribLoc = {};	}
+	// if(shaderProgram.cacheAttribLoc[name] === undefined) {
+	// 	shaderProgram.cacheAttribLoc[name] = gl.getAttribLocation(shaderProgram, name);
+	// }
+    //
+	// return shaderProgram.cacheAttribLoc[name];
+        // console.log(this.cacheAttributesLocation[name], name);
+
+        if(this.cacheAttributesLocation[name] === undefined)
+        {
+            this.cacheAttributesLocation[name] = this.gl.getAttribLocation(this.program, name);
+        }
     }
 
     getAttributeLocation(name)

@@ -6,7 +6,7 @@ export default class Mesh extends Object3D
 	constructor(program , state, drawType = 4)
 	{
 		super();
-		
+
 		this.program = program;
 		this.state = state || new State(this.program.gl);
 		this.drawType = drawType;
@@ -46,6 +46,7 @@ export default class Mesh extends Object3D
     	gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
     	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(data), gl.STATIC_DRAW);
 
+		// console.log('data', data);
    		this._attributes.push({
    			name,
    			data,

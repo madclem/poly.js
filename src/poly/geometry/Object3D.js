@@ -21,6 +21,7 @@ export default class Object3D
 
     _updateMatrix()
     {
+        console.log('here', this._scale);
         mat4.identity(this._matrix, this._matrix);
 
         mat4.translate(this._matrix, this._matrix, this._position);
@@ -29,7 +30,6 @@ export default class Object3D
         mat4.rotateZ(this._matrix, this._matrix, this._rotation[2]);
         mat4.scale(this._matrix, this._matrix, this._scale);
 
-        console.log
     }
 
     setScale(x, y, z)

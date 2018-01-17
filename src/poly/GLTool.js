@@ -5,8 +5,10 @@ export default new class GLTool
 	constructor()
 	{
 		this._lastMesh = null;
+		this._lastProgram = null;
 		this.aspectRatio = 0;
 		this.state = null;
+		this.enabledVertexAttributes = [];
 	}
 
 	init(gl)
@@ -22,11 +24,22 @@ export default new class GLTool
 		{
 			let attrib = mesh._attributes[i];
 			gl.bindBuffer(gl.ARRAY_BUFFER, attrib.buffer);
-    		gl.vertexAttribPointer(mesh.program.getAttributeLocation(attrib.name), attrib.itemSize, gl.FLOAT, false, 0, 0);
+			let attribLocation = mesh.program.getAttributeLocation(attrib.name);
+
+			console.log(attrib, attribLocation, attrib.itemSize);
+    		gl.vertexAttribPointer(attribLocation, attrib.itemSize, gl.FLOAT, false, 0, 0);
+
+			// if(this.enabledVertexAttributes.indexOf(attribLocation) === -1)
+            // {
+                this.enabledVertexAttributes.push(attribLocation)
+                gl.enableVertexAttribArray(attribLocation); // NEVER FORGET THAT LINE (I did...)
+            // }
+
 		}
 
 		if(mesh.indexBuffer)
 		{
+		// 	// console.log('here');
 			gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, mesh.indexBuffer);
 		}
 	}
@@ -39,6 +52,11 @@ export default new class GLTool
 			this._lastMesh = mesh;
 		}
 
+		if(this._lastProgram !== mesh.program)
+		{
+			// mesh.program.bind();
+			this._lastProgram = mesh.program;
+		}
 		mesh.update();
 		let gl = mesh.program.gl;
 
