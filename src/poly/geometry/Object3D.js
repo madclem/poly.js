@@ -20,8 +20,7 @@ export default class Object3D
     }
 
     _updateMatrix()
-    {
-        console.log('here', this._scale);
+    {    
         mat4.identity(this._matrix, this._matrix);
 
         mat4.translate(this._matrix, this._matrix, this._position);

@@ -26,7 +26,6 @@ export default new class GLTool
 			gl.bindBuffer(gl.ARRAY_BUFFER, attrib.buffer);
 			let attribLocation = mesh.program.getAttributeLocation(attrib.name);
 
-			console.log(attrib, attribLocation, attrib.itemSize);
     		gl.vertexAttribPointer(attribLocation, attrib.itemSize, gl.FLOAT, false, 0, 0);
 
 			// if(this.enabledVertexAttributes.indexOf(attribLocation) === -1)

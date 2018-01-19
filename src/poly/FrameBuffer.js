@@ -13,6 +13,7 @@ export default class FrameBuffer
          CREATE FRAME BUFFER AND SET UP ALL OF ITS MEMORY
         */
 
+        this.textures = [];
         // create frame buffer and bind it
         this.framebuffer = gl.createFramebuffer();
         gl.bindFramebuffer(gl.FRAMEBUFFER, this.framebuffer);
@@ -20,6 +21,7 @@ export default class FrameBuffer
         // create an empty texture which can store the colour values
         this.texture = gl.createTexture();
         this.gltexture = new POLY.Texture(this.texture, true);
+        this.textures.push(this.gltexture);
 
         gl.bindTexture(gl.TEXTURE_2D, this.texture);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
@@ -48,11 +50,17 @@ export default class FrameBuffer
         let gl = this.gl;
         gl.bindFramebuffer(gl.FRAMEBUFFER, this.framebuffer);
         gl.viewport(0, 0, this.width, this.height);
+        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     }
 
     unbind()
     {
         let gl = this.gl;
+
+        gl.bindTexture(gl.TEXTURE_2D, this.gltexture._texture);
+        gl.generateMipmap(gl.TEXTURE_2D);
+        gl.bindTexture(gl.TEXTURE_2D, null);
+
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
         gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
     }
@@ -63,5 +71,12 @@ export default class FrameBuffer
         gl.bindTexture(gl.TEXTURE_2D, null);
         gl.bindRenderbuffer(gl.RENDERBUFFER, null);
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    }
+
+    clear()
+    {
+        this.bind();
+	    this.gl.clear(0,0,0,0);
+		// this.unbind();
     }
 }
