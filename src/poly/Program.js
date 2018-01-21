@@ -1,6 +1,6 @@
 export default class Program
 {
-    constructor(vertShader, fragShader, uniforms)
+    constructor(vertShader, fragShader, uniforms = {})
     {
         let gl = POLY.gl; // not sure that's great... :p
         this.gl = gl;

@@ -1,1 +1,1 @@
-{"version":3,"sources":["../../../src/poly/core/index.js"],"names":["Vector"],"mappings":";;;;;;AAAA;;;;;;kBAEe;AACPA;AADO,C","file":"index.js","sourcesContent":["import Vector from './Vector'\n\nexport default {\n        Vector\n}\n"]}
+{"version":3,"sources":["../../../src/poly/core/index.js"],"names":["Vector"],"mappings":";;;;;;AAAA;;;;;;kBAEe;AACPA;AADO,C","file":"index.js","sourcesContent":["import Vector from './Vector'\r\n\r\nexport default {\r\n        Vector\r\n}\r\n"]}

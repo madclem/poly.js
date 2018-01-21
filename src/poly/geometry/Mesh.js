@@ -29,7 +29,7 @@ export default class Mesh extends Object3D
 		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
 		gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), drawType);
 
-	}
+		}
 
 	addPosition(data, name = 'aPosition')
 	{

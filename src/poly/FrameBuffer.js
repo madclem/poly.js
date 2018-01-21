@@ -42,14 +42,11 @@ export default class FrameBuffer
         this.clean();
     }
 
-    bind(w, h)
+    bind()
     {
-        this.width = w || this.width;
-        this.height = h || this.height;
-
         let gl = this.gl;
-        gl.bindFramebuffer(gl.FRAMEBUFFER, this.framebuffer);
         gl.viewport(0, 0, this.width, this.height);
+        gl.bindFramebuffer(gl.FRAMEBUFFER, this.framebuffer);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     }
 

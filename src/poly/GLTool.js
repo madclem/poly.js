@@ -53,9 +53,9 @@ export default new class GLTool
 
 		if(this._lastProgram !== mesh.program)
 		{
-			// mesh.program.bind();
 			this._lastProgram = mesh.program;
 		}
+		
 		mesh.update();
 		let gl = mesh.program.gl;
 
