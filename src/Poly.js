@@ -2,7 +2,7 @@ import Program from './poly/Program';
 import geometry from './poly/geometry';
 import FrameBuffer from './poly/FrameBuffer';
 import GL from './poly/GLTool';
-import Texture from './poly/Texture';
+import Texture from './poly/texture/Texture';
 import cameras from './poly/camera';
 import control from './poly/control';
 import State from './poly/State';
