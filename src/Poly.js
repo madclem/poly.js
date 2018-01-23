@@ -3,6 +3,7 @@ import geometry from './poly/geometry';
 import FrameBuffer from './poly/FrameBuffer';
 import GL from './poly/GLTool';
 import Texture from './poly/texture/Texture';
+import DataTexture from './poly/texture/DataTexture';
 import cameras from './poly/camera';
 import control from './poly/control';
 import State from './poly/State';
@@ -35,6 +36,7 @@ export
     GL,
     utils,
     Texture,
+    DataTexture,
     CONST,
     cameras,
     control,

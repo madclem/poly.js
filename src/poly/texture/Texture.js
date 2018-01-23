@@ -15,6 +15,7 @@ export default class Texture
 		{
 			this._texture = gl.createTexture();
 
+			
 			this.image = new Image();
 			this.image.src = image;
 
