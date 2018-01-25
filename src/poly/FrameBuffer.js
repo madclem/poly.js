@@ -17,7 +17,6 @@ export default class FrameBuffer
 
         var floatTextures = ext.getExtension('OES_texture_float');
 
-        console.log(floatTextures)
         if (!ext.getExtension("OES_texture_float")){
           throw new Error( "float textures not supported" );
         }
@@ -27,15 +26,13 @@ export default class FrameBuffer
         const extHalfFloat = ext.getExtension('OES_texture_half_float');
         ext.getExtension("OES_texture_float_linear");
 
-        if (ext.checkExtension('OES_texture_float')) 
+        if (ext.checkExtension('OES_texture_float'))
         {
             type = gl.FLOAT;
-            console.log('here')
         }
         else if(extHalfFloat) {
             type = extHalfFloat.HALF_FLOAT_OES;
         }
-
 
             // if (mcgl.GL.isMobile && type === gl.FLOAT && extHalfFloat) {
             //     type = extHalfFloat.HALF_FLOAT_OES;
@@ -62,12 +59,12 @@ export default class FrameBuffer
 
         // create a renderbuffer (buffer associated to a frame buffer object), this one for the depth!
         var renderBufferDepth = gl.createRenderbuffer();
-        gl.bindRenderbuffer(gl.RENDERBUFFER, renderBufferDepth);
-        gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT16, this.width, this.height);
+        // gl.bindRenderbuffer(gl.RENDERBUFFER, renderBufferDepth);
+        // gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT16, this.width, this.height);
 
         // attach everything to the current frame buffer
         gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, this.texture, 0);
-        gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, renderBufferDepth);
+        // gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, renderBufferDepth);
 
 
         this.clean();

@@ -1,3 +1,5 @@
+import { mat4 } from 'gl-matrix';
+
 export default class Program
 {
     constructor(vertShader, fragShader, uniforms = {})
@@ -25,6 +27,7 @@ export default class Program
 
         gl.useProgram(this.program);
 
+        this._checkIfBasicMatrices(uniforms);
         this._createGetterSetterUniforms(uniforms);
         for (let uniform in uniforms)
         {
@@ -61,6 +64,21 @@ export default class Program
         }
     }
 
+    _checkIfBasicMatrices(uniforms)
+    {
+        let matrices = ['projectionMatrix', 'modelMatrix', 'viewMatrix'];
+
+        for (let i = 0; i < matrices.length; i++)
+        {
+            if(!uniforms[matrices[i]])
+            {
+                uniforms[matrices[i]] = {
+            		value: mat4.create(),
+            		type: 'mat4'
+                }
+            }
+        }
+    }
 
     // create a this.uniforms property
     // useful for the setter, we can just update the uniform when it gets changed

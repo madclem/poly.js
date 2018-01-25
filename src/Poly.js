@@ -8,6 +8,7 @@ import cameras from './poly/camera';
 import control from './poly/control';
 import State from './poly/State';
 import CONST from './poly/const';
+import helpers from './poly/helpers';
 import * as utils from './poly/utils';
 
 let init = (canvas)=>
@@ -42,7 +43,8 @@ export
     control,
     State,
     geometry,
-    FrameBuffer
+    FrameBuffer,
+    helpers
 }
 
 global.POLY = exports; // eslint-disable-line

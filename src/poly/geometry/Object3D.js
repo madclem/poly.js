@@ -24,7 +24,7 @@ export default class Object3D
     }
 
     _updateMatrix()
-    {    
+    {
         vec3.set(this._scale, this.scale.x, this.scale.y, this.scale.z);
         vec3.set(this._position, this.position.x, this.position.y, this.position.z);
         vec3.set(this._rotation, this.rotation.x, this.rotation.y, this.rotation.z);

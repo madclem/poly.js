@@ -38,10 +38,24 @@ export default new class GLTool
 
 		}
 
-		if(mesh.indexBuffer)
-		{
+		// if(mesh.indexBuffer)
+		// {
 			gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, mesh.indexBuffer);
-		}
+		// }
+	}
+
+	setCamera(camera)
+	{
+		this._camera = camera;
+	}
+
+	_updateMatrices(mesh)
+	{
+		let program = mesh.program;
+		program.uniforms.projectionMatrix = this._camera.projectionMatrix;
+	    program.uniforms.viewMatrix = this._camera.matrix;
+	    program.uniforms.modelMatrix = mesh._matrix;
+
 	}
 
 	draw(mesh)
@@ -56,13 +70,18 @@ export default new class GLTool
 		{
 			this._lastProgram = mesh.program;
 		}
-		
+
 		mesh.update();
 		let gl = mesh.program.gl;
 
 		if(mesh.state)
 		{
 			this.state.setState(mesh.state);
+		}
+
+		if(this._camera)
+		{
+			this._updateMatrices(mesh);
 		}
 
 		if(mesh.indexBuffer)
