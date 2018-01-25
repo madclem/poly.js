@@ -15,7 +15,7 @@ let init = (canvas)=>
     let gl;
     try
     {
-        gl = canvas.getContext("experimental-webgl");
+        gl = canvas.getContext("webgl");
 
         POLY.gl = gl;
         POLY.GL.init(gl);

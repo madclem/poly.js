@@ -1,3 +1,5 @@
+import ext from './GLExtensions';
+
 export default class FrameBuffer
 {
     constructor(width = 512, height = 512, texture)
@@ -13,21 +15,50 @@ export default class FrameBuffer
          CREATE FRAME BUFFER AND SET UP ALL OF ITS MEMORY
         */
 
+        var floatTextures = ext.getExtension('OES_texture_float');
+
+        console.log(floatTextures)
+        if (!ext.getExtension("OES_texture_float")){
+          throw new Error( "float textures not supported" );
+        }
+
+        var halfFloat = ext.getExtension("OES_texture_half_float");
+        let type = gl.UNSIGNED_BYTE;
+        const extHalfFloat = ext.getExtension('OES_texture_half_float');
+        ext.getExtension("OES_texture_float_linear");
+
+        if (ext.checkExtension('OES_texture_float')) 
+        {
+            type = gl.FLOAT;
+            console.log('here')
+        }
+        else if(extHalfFloat) {
+            type = extHalfFloat.HALF_FLOAT_OES;
+        }
+
+
+            // if (mcgl.GL.isMobile && type === gl.FLOAT && extHalfFloat) {
+            //     type = extHalfFloat.HALF_FLOAT_OES;
+            // }
+
         this.textures = [];
         // create frame buffer and bind it
         this.framebuffer = gl.createFramebuffer();
         gl.bindFramebuffer(gl.FRAMEBUFFER, this.framebuffer);
 
         // create an empty texture which can store the colour values
+
         this.texture = gl.createTexture();
         this.gltexture = new POLY.Texture(this.texture, true);
         this.textures.push(this.gltexture);
 
         gl.bindTexture(gl.TEXTURE_2D, this.texture);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
         gl.generateMipmap(gl.TEXTURE_2D);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, this.width, this.height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, this.width, this.height, 0, gl.RGBA, type, null);
 
         // create a renderbuffer (buffer associated to a frame buffer object), this one for the depth!
         var renderBufferDepth = gl.createRenderbuffer();
@@ -74,6 +105,6 @@ export default class FrameBuffer
     {
         this.bind();
 	    this.gl.clear(0,0,0,0);
-		// this.unbind();
+		this.unbind();
     }
 }

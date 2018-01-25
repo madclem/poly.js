@@ -1,4 +1,5 @@
 import State from './State';
+import GLExtensions from './GLExtensions';
 
 export default new class GLTool
 {
@@ -14,6 +15,7 @@ export default new class GLTool
 	init(gl)
 	{
 		this.state = new State(gl);
+		GLExtensions.init();
 	}
 
 	_bindBuffers(mesh)
@@ -38,7 +40,6 @@ export default new class GLTool
 
 		if(mesh.indexBuffer)
 		{
-		// 	// console.log('here');
 			gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, mesh.indexBuffer);
 		}
 	}
