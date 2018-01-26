@@ -29,11 +29,13 @@ export default new class GLTool
 			let attribLocation = mesh.program.getAttributeLocation(attrib.name);
 
     		gl.vertexAttribPointer(attribLocation, attrib.itemSize, gl.FLOAT, false, 0, 0);
+			// console.log(attrib, attrib.itemSize);
 
-			// if(this.enabledVertexAttributes.indexOf(attribLocation) === -1)
-            // {
+			if(this.enabledVertexAttributes.indexOf(attribLocation) === -1)
+            {
                 this.enabledVertexAttributes.push(attribLocation)
-                gl.enableVertexAttribArray(attribLocation); // NEVER FORGET THAT LINE (I did...)
+				gl.enableVertexAttribArray(attribLocation); // NEVER FORGET THAT LINE (I did...)
+			}
             // }
 
 		}

@@ -1,5 +1,6 @@
 import State from '../State';
 import Object3D from './Object3D';
+import { mat4 } from 'gl-matrix';
 
 export default class Mesh extends Object3D
 {
@@ -13,6 +14,7 @@ export default class Mesh extends Object3D
 		this._attributes = [];
 		this._vertices = [];
 		this._indices = [];
+		this.matrix = mat4.create();
 		this._vertexSize = 0;
 		this._numItems = 0;
 		this.indexBuffer = null;

@@ -1,4 +1,6 @@
 import Mesh from '../geometry/Mesh';
+import Program from '../Program';
+import State from '../State';
 import vert from '../shaders/planes-dot.vert';
 import frag from '../shaders/simpleColor.frag';
 
@@ -6,7 +8,8 @@ export default class BatchPlanes extends Mesh
 {
     constructor(size = 25)
     {
-        let program = new POLY.Program(vert, frag, {
+
+        let program = new Program(vert, frag, {
             color: {
                 type: 'vec3',
                 value: [1., 1., 1.]
@@ -16,8 +19,10 @@ export default class BatchPlanes extends Mesh
                 value: .6
             }
         });
+        let state = new State(program);
+        state.depthTest = false;
 
-        super(program, null, 0);
+        super(program, state, 0);
 
         let index = 0;
         let positions = [];
@@ -37,7 +42,7 @@ export default class BatchPlanes extends Mesh
             }
         }
 
-        this.addPosition(positions);
+        this.addPosition(positions, 'aPosition');
         this.addIndices(indices);
     }
 
