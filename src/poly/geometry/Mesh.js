@@ -10,6 +10,12 @@ export default class Mesh extends Object3D
 
 		this.program = program;
 		this.state = state || new State(this.program.gl);
+
+		if(!state)
+		{
+			this.state.depthTest = true;
+		}
+		
 		this.drawType = drawType;
 		this._attributes = [];
 		this._vertices = [];

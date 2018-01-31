@@ -29,7 +29,6 @@ export default new class GLTool
 			let attribLocation = mesh.program.getAttributeLocation(attrib.name);
 
     		gl.vertexAttribPointer(attribLocation, attrib.itemSize, gl.FLOAT, false, 0, 0);
-			// console.log(attrib, attrib.itemSize);
 
 			if(this.enabledVertexAttributes.indexOf(attribLocation) === -1)
             {
@@ -79,6 +78,7 @@ export default new class GLTool
 		if(mesh.state)
 		{
 			this.state.setState(mesh.state);
+
 		}
 
 		if(this._camera)

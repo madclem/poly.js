@@ -19,8 +19,8 @@ export default class BatchPlanes extends Mesh
                 value: .6
             }
         });
-        let state = new State(program);
-        state.depthTest = false;
+        let state = new State(POLY.gl);
+        state.depthTest = true;
 
         super(program, state, 0);
 
