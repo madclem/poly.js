@@ -1,13 +1,17 @@
 import Mesh from '../Mesh';
 
-class Sphere extends Mesh 
+class Sphere extends Mesh
 {
   constructor(program, data={}, state, drawType){
     super(program, state, drawType)
 
-    this.options = {
-      nbVert: data.nbVert || 10,
-      radius: data.radius || 1,
+    data = data || {};
+
+    this.options =
+    {
+        nbVert: data.nbVert || 10,
+        radius: data.radius || 1,
+        positionAttributeName: data.positionAttributeName || 'aPosition'
     }
 
     this.sphere();
@@ -24,9 +28,9 @@ class Sphere extends Mesh
     let dTex = 1/ this.options.nbVert;
 
     let angle;
-    for (var i = 0; i < this.options.nbVert; i++) 
+    for (var i = 0; i < this.options.nbVert; i++)
     {
-      for (var j = 0; j < this.options.nbVert; j++) 
+      for (var j = 0; j < this.options.nbVert; j++)
       {
         angle = this.getAngle(i, j);
         positions.push(angle[0], angle[1], angle[2]);
@@ -57,13 +61,14 @@ class Sphere extends Mesh
       }
     }
 
-    this.addPosition(positions);
-    this.addAttribute(uv, 'aUv', 2);
+    this.uvs = uv;
+
+    this.addPosition(positions, this.options.positionAttributeName);
     this.addIndices(indices, false);
   }
 
-  getAngle(i, j, isNormal = false) 
-  {	
+  getAngle(i, j, isNormal = false)
+  {
     //	rx : -90 ~ 90 , ry : 0 ~ 360
     const ry        = j / this.options.nbVert * Math.PI * 2 - Math.PI;
 		const rx        = i / this.options.nbVert * Math.PI - Math.PI * 0.5;

@@ -2,18 +2,22 @@ import Mesh from '../Mesh';
 import FacesMultiplicator from '../../utils/FacesMultiplicator';
 import FacesSeparator from '../../utils/FacesSeparator';
 
-class Cube extends Mesh {
+class Cube extends Mesh
+{
   constructor(program, data={}, state, drawType = 4){
 
     super(program, state, drawType)
 
-    this.options = 
+    data = data || {};
+    
+    this.options =
     {
       w: data.w || 1,
       h: data.h || 1,
       d: data.d || 1,
       multiFace: data.multiFace,
       subdivision: data.subdivision || 0,
+      positionAttributeName: data.positionAttributeName || 'aPosition',
     }
 
     this.multiFace = this.options.multiFace;
@@ -26,7 +30,8 @@ class Cube extends Mesh {
     this.cube();
   }
 
-  cube(){
+  cube()
+  {
     const x = this.width / 2;
   	const y = this.height / 2;
   	const z = this.depth / 2;
@@ -248,9 +253,10 @@ class Cube extends Mesh {
       normals.push(0, -1, 0);
     }
 
-    this.addPosition(positions);
-    this.addAttribute(coords, 'aUv', 2);
-    this.addAttribute(normals, 'aNormal', 3);
+    this.uvs = coords;
+    this.normals = normals;
+
+    this.addPosition(positions, this.options.positionAttributeName);
     this.addIndices(faces, false);
   }
 }

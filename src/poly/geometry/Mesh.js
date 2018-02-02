@@ -8,6 +8,9 @@ export default class Mesh extends Object3D
 	{
 		super();
 
+		this.uvs = [];
+		this.normals = [];
+
 		this.program = program;
 		this.state = state || new State(this.program.gl);
 
@@ -15,7 +18,8 @@ export default class Mesh extends Object3D
 		{
 			this.state.depthTest = true;
 		}
-		
+
+		this.instanceCount = 0;
 		this.drawType = drawType;
 		this._attributes = [];
 		this._vertices = [];
@@ -47,7 +51,7 @@ export default class Mesh extends Object3D
 		this.addAttribute(data, name);
 	}
 
-	addAttribute(data, name, itemSize = 3)
+	addAttribute(data, name, itemSize = 3, instance)
 	{
 		let gl = this.program.gl;
 		let buffer = gl.createBuffer();
@@ -60,7 +64,8 @@ export default class Mesh extends Object3D
    			data,
    			itemSize,
    			numItems: this._numItems,
-   			buffer
+   			buffer,
+			instance
    		});
 
    		this.program.addAttributeLocation(name);

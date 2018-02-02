@@ -1,9 +1,14 @@
 import { mat4 } from 'gl-matrix';
+import vert from './shaders/basic.vert';
+import frag from './shaders/basic.frag';
 
 export default class Program
 {
     constructor(vertShader, fragShader, uniforms = {})
     {
+        vertShader = vertShader || vert;
+        fragShader = fragShader || frag;
+
         let gl = POLY.gl; // not sure that's great... :p
         this.gl = gl;
         // cache the locations of attributes and uniforms
@@ -13,9 +18,9 @@ export default class Program
         // create the program itself
         this.program = gl.createProgram();
 
-        let vert = this._createShader(vertShader, true);
-        let frag = this._createShader(fragShader, false);
-        this._attachShaders(vert, frag);
+        let vertS = this._createShader(vertShader, true);
+        let fragS = this._createShader(fragShader, false);
+        this._attachShaders(vertS, fragS);
 
         gl.linkProgram(this.program);
 
