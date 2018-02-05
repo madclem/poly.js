@@ -43,12 +43,12 @@ export default class Mesh extends Object3D
 
 		}
 
-	addPosition(data, name = 'aPosition')
+	addPosition(data, name = 'aPosition', itemSize = 3)
 	{
 		this._vertices = data;
 		this._vertexSize = this._vertices.length;
-		this._numItems = this._vertexSize/3;
-		this.addAttribute(data, name);
+		this._numItems = this._vertexSize/itemSize;
+		this.addAttribute(data, name, itemSize);
 	}
 
 	addAttribute(data, name, itemSize = 3, instance)
