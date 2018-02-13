@@ -6,8 +6,7 @@ class Camera
     {
         this.aspectRatio = mat4.create();
 
-        this.matrix = mat4.create(); // changes on the camera
-        this.viewMatrix = mat4.create(); // move the world in front of the camera (inverse)
+        this.matrix = mat4.create(); // changes on the camera        
         this.projectionMatrix = mat4.create();
 
 

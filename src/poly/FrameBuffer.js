@@ -59,12 +59,12 @@ export default class FrameBuffer
 
         // create a renderbuffer (buffer associated to a frame buffer object), this one for the depth!
         var renderBufferDepth = gl.createRenderbuffer();
-        // gl.bindRenderbuffer(gl.RENDERBUFFER, renderBufferDepth);
-        // gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT16, this.width, this.height);
+        gl.bindRenderbuffer(gl.RENDERBUFFER, renderBufferDepth);
+        gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT16, this.width, this.height);
 
         // attach everything to the current frame buffer
         gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, this.texture, 0);
-        // gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, renderBufferDepth);
+        gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, renderBufferDepth);
 
 
         this.clean();
