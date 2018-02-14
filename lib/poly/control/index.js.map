@@ -1,1 +1,1 @@
-{"version":3,"sources":["../../../src/poly/control/index.js"],"names":["OrbitalControl"],"mappings":";;;;;;AAAA;;;;;;kBAGA;AACCA;AADD,C","file":"index.js","sourcesContent":["import OrbitalControl from './OrbitalControl';\n\nexport default \n{\n\tOrbitalControl\n}"]}
+{"version":3,"sources":["../../../src/poly/control/index.js"],"names":["OrbitalControl"],"mappings":";;;;;;AAAA;;;;;;kBAGA;AACCA;AADD,C","file":"index.js","sourcesContent":["import OrbitalControl from './OrbitalControl';\r\n\r\nexport default \r\n{\r\n\tOrbitalControl\r\n}"]}

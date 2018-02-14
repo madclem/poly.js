@@ -70,4 +70,21 @@ export default class Mesh extends Object3D
 
    		this.program.addAttributeLocation(name);
 	}
+
+	updateAttribute(name, data)
+	{	
+		let gl = this.program.gl;
+		for (var i = 0; i < this._attributes.length; i++) 
+		{
+			let attr = this._attributes[i];
+			if(attr.name === name)
+			{
+				let buffer =attr.buffer;
+    			gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+    			gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(data), gl.STATIC_DRAW);
+    			attr.data = data;
+				break;
+			}
+		}
+	}
 }
