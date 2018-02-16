@@ -1,1 +1,1 @@
-{"version":3,"sources":["../../../src/poly/camera/index.js"],"names":["PerspectiveCamera"],"mappings":";;;;;;AAAA;;;;;;kBAEe;AACdA;AADc,C","file":"index.js","sourcesContent":["import PerspectiveCamera from './Camera';\r\n\r\nexport default {\r\n\tPerspectiveCamera\r\n}\r\n"]}
+{"version":3,"sources":["../../../src/poly/camera/index.js"],"names":["PerspectiveCamera"],"mappings":";;;;;;AAAA;;;;;;kBAEe;AACdA;AADc,C","file":"index.js","sourcesContent":["import PerspectiveCamera from './Camera';\n\nexport default {\n\tPerspectiveCamera\n}\n"]}

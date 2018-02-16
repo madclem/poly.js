@@ -36,12 +36,15 @@ export default class Mesh extends Object3D
 		const drawType = dynamic ? gl.DYNAMIC_DRAW : gl.STATIC_DRAW;
 		this._indices = indices;
 
-		this.indexBuffer = gl.createBuffer();
+		if(!this.indexBuffer)
+		{
+			this.indexBuffer = gl.createBuffer();
+		}
 
 		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
 		gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), drawType);
 
-		}
+	}
 
 	addPosition(data, name = 'aPosition', itemSize = 3)
 	{
@@ -49,6 +52,14 @@ export default class Mesh extends Object3D
 		this._vertexSize = this._vertices.length;
 		this._numItems = this._vertexSize/itemSize;
 		this.addAttribute(data, name, itemSize);
+	}
+
+	updatePosition(name = 'aPosition', data, itemSize = 3)
+	{
+		this._vertices = data;
+		this._vertexSize = this._vertices.length;
+		this._numItems = this._vertexSize/itemSize;
+		this.updateAttribute(name, data);
 	}
 
 	addAttribute(data, name, itemSize = 3, instance)
@@ -72,9 +83,9 @@ export default class Mesh extends Object3D
 	}
 
 	updateAttribute(name, data)
-	{	
+	{
 		let gl = this.program.gl;
-		for (var i = 0; i < this._attributes.length; i++) 
+		for (var i = 0; i < this._attributes.length; i++)
 		{
 			let attr = this._attributes[i];
 			if(attr.name === name)
@@ -83,8 +94,10 @@ export default class Mesh extends Object3D
     			gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
     			gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(data), gl.STATIC_DRAW);
     			attr.data = data;
+
 				break;
 			}
 		}
+
 	}
 }

@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../src/poly/loaders/index.js"],"names":["OBJLoader"],"mappings":";;;;;;AAAA;;;;;;kBAGA;AACIA;AADJ,C","file":"index.js","sourcesContent":["import OBJLoader from './OBJLoader';\n\nexport default\n{\n    OBJLoader\n}\n"]}

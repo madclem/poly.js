@@ -1,1 +1,1 @@
-{"version":3,"sources":["../../../src/poly/helpers/index.js"],"names":["BatchPlanes"],"mappings":";;;;;;AAAA;;;;;;kBAEe;AACdA;AADc,C","file":"index.js","sourcesContent":["import BatchPlanes from './BatchPlanes';\r\n\r\nexport default {\r\n\tBatchPlanes\r\n}\r\n"]}
+{"version":3,"sources":["../../../src/poly/helpers/index.js"],"names":["BatchPlanes"],"mappings":";;;;;;AAAA;;;;;;kBAEe;AACdA;AADc,C","file":"index.js","sourcesContent":["import BatchPlanes from './BatchPlanes';\n\nexport default {\n\tBatchPlanes\n}\n"]}

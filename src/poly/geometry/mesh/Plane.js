@@ -60,7 +60,7 @@ export default class Plane extends Mesh
 
                 index++;
 
-                this.uvs.push(u, v)
+                this.uvs.push(u, v, u, v, u, v, u, v)
             }
         }
 

@@ -1,4 +1,5 @@
 import Program from './poly/Program';
+import loaders from './poly/loaders';
 import geometry from './poly/geometry';
 import FrameBuffer from './poly/FrameBuffer';
 import GL from './poly/GLTool';
@@ -44,7 +45,8 @@ export
     State,
     geometry,
     FrameBuffer,
-    helpers
+    helpers,
+    loaders
 }
 
 global.POLY = exports; // eslint-disable-line
