@@ -23,7 +23,7 @@ export default new class GLExtensions
     }
 
     getExtension(id)
-    {
+    {    
         return this.extensions[id];
     }
 }

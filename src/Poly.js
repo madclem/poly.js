@@ -11,17 +11,26 @@ import State from './poly/State';
 import CONST from './poly/const';
 import helpers from './poly/helpers';
 import * as utils from './poly/utils';
+import GLExtensions from './poly/GLExtensions';
 
-let init = (canvas)=>
+let init = (canvas, forceWebGL1)=>
 {
     let gl;
     try
     {
-        gl = canvas.getContext("webgl");
+        gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+
+        // if(gl && !forceWebGL1)
+        // {
+    	// 	POLY.webgl2 = true;
+		// }
+        // else if(forceWebGL1)
+        // {
+		// 	gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+		// }
 
         POLY.gl = gl;
         POLY.GL.init(gl);
-
     } catch (e)
     {
     }
@@ -36,6 +45,7 @@ export
     init,
     Program,
     GL,
+    GLExtensions,
     utils,
     Texture,
     DataTexture,

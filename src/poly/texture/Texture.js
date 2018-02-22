@@ -15,7 +15,6 @@ export default class Texture
 		{
 			this._texture = gl.createTexture();
 
-			
 			this.image = new Image();
 			this.image.src = image;
 
@@ -28,17 +27,19 @@ export default class Texture
 	{
 		let gl = this.gl;
 
-		var ext = gl.getExtension('OES_texture_float');
 		gl.bindTexture(gl.TEXTURE_2D, this._texture);
 		gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.FLOAT, image);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
 
   		if(POLY.utils.isPowerOfTwo(image.width) && POLY.utils.isPowerOfTwo(image.height))
   		{
   			gl.generateMipmap(gl.TEXTURE_2D);
   		}
+
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.MIRRORED_REPEAT);
+		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.MIRRORED_REPEAT);
         gl.bindTexture(gl.TEXTURE_2D, null);
 	}
 

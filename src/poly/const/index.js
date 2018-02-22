@@ -1,6 +1,6 @@
-export default 
+export default
 {
-	uniformTypes: 
+	uniformTypes:
 	{
 		float: 'uniform1f',
 		vec2: 'uniform2fv',

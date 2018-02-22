@@ -1,5 +1,6 @@
 import State from './State';
 import GLExtensions from './GLExtensions';
+import getAndApplyExtension from './utils/getAndApplyExtension';
 
 export default new class GLTool
 {
@@ -20,6 +21,14 @@ export default new class GLTool
 		GLExtensions.init();
 		this._hasInstance = GLExtensions.checkExtension('ANGLE_instanced_arrays');
 		this._instanceExt = GLExtensions.getExtension('ANGLE_instanced_arrays');
+
+		getAndApplyExtension(gl, 'WEBGL_draw_buffers');
+		// console.log('Extensions : ', this.extensions);
+		// for(const ext in this.extensions) {
+		// 	if(this.extensions[ext]) {
+		// 		console.log(ext, ':', this.extensions[ext]);
+		// 	}
+		// }
 	}
 
 	_bindBuffers(mesh)
