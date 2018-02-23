@@ -55,12 +55,29 @@ export default class FrameBuffer
         {
             if(this._multiTargets)
             {
+                const extDrawBuffer = ext.getExtension('WEBGL_draw_buffers');
     			for (let i = 0; i < this.textures.length; i++)
                 {
-    				gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, this.textures[i]._texture, 0);
+    				gl.framebufferTexture2D(gl.FRAMEBUFFER, extDrawBuffer[`COLOR_ATTACHMENT${i}_WEBGL`], gl.TEXTURE_2D, this.textures[i]._texture, 0);
     			}
 
-                const extDrawBuffer = ext.getExtension('WEBGL_draw_buffers');
+
+
+                // console.log(extDrawBuffer.COLOR_ATTACHMENT0_WEBGL, gl.COLOR_ATTACHMENT0);
+                // gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, this.textures[0]._texture, 0);
+                // gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT1, gl.TEXTURE_2D, this.textures[1]._texture, 0);
+                // gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT2, gl.TEXTURE_2D, this.textures[2]._texture, 0);
+                // gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT3, gl.TEXTURE_2D, this.textures[3]._texture, 0);
+                // gl.framebufferTexture2D(gl.FRAMEBUFFER, extDrawBuffer.COLOR_ATTACHMENT0_WEBGL, gl.TEXTURE_2D, this.textures[0]._texture, 0);
+                // gl.framebufferTexture2D(gl.FRAMEBUFFER, extDrawBuffer.COLOR_ATTACHMENT1_WEBGL, gl.TEXTURE_2D, this.textures[1]._texture, 0);
+                // gl.framebufferTexture2D(gl.FRAMEBUFFER, extDrawBuffer.COLOR_ATTACHMENT2_WEBGL, gl.TEXTURE_2D, this.textures[2]._texture, 0);
+                // gl.framebufferTexture2D(gl.FRAMEBUFFER, extDrawBuffer.COLOR_ATTACHMENT3_WEBGL, gl.TEXTURE_2D, this.textures[3]._texture, 0);
+
+
+                if (gl.checkFramebufferStatus(gl.FRAMEBUFFER) !== gl.FRAMEBUFFER_COMPLETE) {
+                    console.log('error');
+                }
+
 				extDrawBuffer.drawBuffersWEBGL([
 					extDrawBuffer.COLOR_ATTACHMENT0_WEBGL, // gl_FragData[0]
 					extDrawBuffer.COLOR_ATTACHMENT1_WEBGL, // gl_FragData[1]
@@ -70,7 +87,7 @@ export default class FrameBuffer
 
                 if(this.depthTexture)
                 {
-                    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.TEXTURE_2D, this.glDepthTexture.texture, 0);
+                    // gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.TEXTURE_2D, this.glDepthTexture.texture, 0);
                 }
 			}
             else
@@ -143,6 +160,11 @@ export default class FrameBuffer
 		return glt;
 	}
 
+    getTexture(index)
+    {
+        return this.textures[index];
+    }
+
     bind()
     {
         let gl = this.gl;
@@ -155,9 +177,9 @@ export default class FrameBuffer
     {
         let gl = this.gl;
 
-        gl.bindTexture(gl.TEXTURE_2D, this.gltexture._texture);
-        gl.generateMipmap(gl.TEXTURE_2D);
-        gl.bindTexture(gl.TEXTURE_2D, null);
+        // gl.bindTexture(gl.TEXTURE_2D, this.gltexture._texture);
+        // gl.generateMipmap(gl.TEXTURE_2D);
+        // gl.bindTexture(gl.TEXTURE_2D, null);
 
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
         gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
