@@ -12,26 +12,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/Doormat23/odie.git"
+    "url": "git+ssh://git@bitbucket.org/madclem/poly.git"
   },
   "keywords": [
-    "Game",
-    "engine",
-    "html",
-    "5",
-    "entity",
-    "component"
+    "3d",
+    "webgl"
   ],
-  "author": "Goodboy digital team",
+  "author": "@madclem",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/Doormat23/#readme",
+  "homepage": "",
   "dependencies": {
     "browserify-versionify": "^1.0.6",
     "dat-gui": "^0.5.0",
-    "gsap": "^1.19.0",
-    "mini-signals": "^1.1.1",
-    "pixi.js": "git+https://github.com/pixijs/pixi.js.git#next-odie",
-    "sono": "^2.1.4",
     "stats.js": "^0.17.0"
   },
   "browserify": {
@@ -49,7 +41,6 @@
     "gl-matrix": "^2.3.2",
     "fontfaceobserver": "^2.0.13",
     "parallelshell": "^2.0.0",
-    "pixi-sound": "^1.4.2",
     "signals": "^1.0.0",
     "watch": "^1.0.1"
   }
