@@ -7,8 +7,7 @@ export default function getAndApplyExtension(gl, name)
     {
 		return false;
 	}
-
-    console.log('yo', name);
+	    
 	const suffix = name.split('_')[0];
 	const suffixRE = new RegExp(`${suffix}$`);
 
