@@ -1,4 +1,5 @@
 import { mat4, vec3 } from 'gl-matrix';
+import Ray from '../core/Ray';
 
 class Camera
 {
@@ -6,17 +7,41 @@ class Camera
     {
         this.aspectRatio = mat4.create();
 
-        this.matrix = mat4.create(); // changes on the camera        
+        this.matrix = mat4.create(); // changes on the camera
         this.projectionMatrix = mat4.create();
-
 
         this.mRX = mat4.create();
         this.mRY = mat4.create();
         this.mRZ = mat4.create();
         this.mT = mat4.create();
 
+        this.inverseViewProj = mat4.create();
+		this.cameraDir = vec3.create();
+
         this.position = vec3.create();
     }
+
+    getRay(pos, ray) {
+		const proj = this.projectionMatrix;
+		const view = this.matrix;
+
+		mat4.multiply(this.inverseViewProj, proj, view);
+		mat4.invert(this.inverseViewProj, this.inverseViewProj);
+
+		vec3.transformMat4(this.cameraDir, pos, this.inverseViewProj);
+		vec3.sub(this.cameraDir, this.cameraDir, this.position);
+		vec3.normalize(this.cameraDir, this.cameraDir);
+
+		if (!ray) {
+			ray = new Ray(this.position, this.cameraDir);
+		} else {
+			ray.origin = this.position;
+			ray.direction = this.cameraDir;
+		}
+
+
+		return ray;
+	}
 
     lookAt(target, up = [0, 1, 0])
     {

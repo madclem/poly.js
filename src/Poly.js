@@ -6,6 +6,7 @@ import GL from './poly/GLTool';
 import Texture from './poly/texture/Texture';
 import DataTexture from './poly/texture/DataTexture';
 import cameras from './poly/camera';
+import core from './poly/core';
 import control from './poly/control';
 import State from './poly/State';
 import CONST from './poly/const';
@@ -53,6 +54,7 @@ export
     cameras,
     control,
     State,
+    core,
     geometry,
     FrameBuffer,
     helpers,

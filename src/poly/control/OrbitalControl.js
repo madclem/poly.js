@@ -44,6 +44,7 @@ class OrbitalCameraControl {
 
         this._quat = quat.create();
         this._vec = vec3.create();
+        this._position = vec3.create();
         this._mtx = mat4.create();
 
 
@@ -58,7 +59,7 @@ class OrbitalCameraControl {
         };
 
         this._init();
-    } 
+    }
 
 
     _init() {
@@ -99,7 +100,7 @@ class OrbitalCameraControl {
                 value = -d / 3;              // Firefox;         TODO: do not /3 for OS X
             }
         } else {
-            value = w / 120; 
+            value = w / 120;
         }
 
         this._targetRadius += (-value * 2 * this.senstivity);
@@ -152,7 +153,7 @@ class OrbitalCameraControl {
         this._ry += (this._try - this._ry) * this.easing;
         this._radius += (this._targetRadius - this._radius) * this.easing;
 
-        quat.identity(this._quat);        
+        quat.identity(this._quat);
         quat.rotateY(this._quat, this._quat, this._ry);
         quat.rotateX(this._quat, this._quat, this._rx);
 
@@ -166,6 +167,17 @@ class OrbitalCameraControl {
         if(this._mtxTarget) {
             mat4.copy(this._mtxTarget, this._mtx);
         }
+
+
+        this._position[1] = -Math.sin(this._rx) * this._radius;
+        const tr = Math.cos(this._rx) * this._radius;
+        this._position[2] = Math.cos(this._ry + Math.PI * 2) * tr;
+        this._position[0] = Math.sin(this._ry + Math.PI * 2) * tr;
+        // console.log(this._position);
+
+
+
+        // vec3.add(this._position, this._position, this._position)
     }
 
 }
