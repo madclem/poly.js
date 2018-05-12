@@ -29,6 +29,19 @@ export default new class Loop
 		return id;
 	}
 
+	remove(func)
+	{
+		console.log('try to remove');
+		for (var i = 0; i < this._loops.length; i++) {
+			if(this._loops[i].func === func)
+			{
+				console.log('remove here');
+				this._loops.splice(i, 1);
+				break;
+			}
+		}
+	}
+
 	clear()
 	{
 		this._loops = [];
@@ -53,7 +66,7 @@ export default new class Loop
 
 			if(this._loops.length > 0)
 			{
-				for (var i = 0; i < this._loops.length; i++) 
+				for (var i = 0; i < this._loops.length; i++)
 				{
 					this._loops[i].func(this._loops[i]);
 				}

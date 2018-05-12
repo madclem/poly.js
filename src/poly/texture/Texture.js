@@ -43,6 +43,14 @@ export default class Texture
         gl.bindTexture(gl.TEXTURE_2D, null);
 	}
 
+	updateTexture(image)
+	{
+		let gl = this.gl;
+        gl.bindTexture(gl.TEXTURE_2D, this._texture);
+        gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, gl.RGBA, gl.UNSIGNED_BYTE, image);
+		gl.bindTexture(gl.TEXTURE_2D, null);
+	}
+
 	bind(index = 0)
 	{
 		let gl = this.gl;

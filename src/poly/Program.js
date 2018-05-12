@@ -1,4 +1,5 @@
 import { mat4 } from 'gl-matrix';
+import UniformGroup from './UniformGroup';
 import vert from './shaders/basic.vert';
 import frag from './shaders/basic.frag';
 
@@ -33,7 +34,8 @@ export default class Program
         gl.useProgram(this.program);
 
         this._checkIfBasicMatrices(uniforms);
-        this._createGetterSetterUniforms(uniforms);
+
+        this.uniforms = new UniformGroup(uniforms, this);
         for (let uniform in uniforms)
         {
             this.addUniformLocation(uniform);
@@ -93,51 +95,121 @@ export default class Program
         let program = this.program;
         let _this = this;
 
-        this.uniforms = new Proxy(uniforms, {
-            get: function(target, name)
-            {
-                if (!(name in target))
-                {
-                    console.log("Getting non-existant property '" + name + "'");
-                    return undefined;
-                }
 
-                return target[name].value;
-            },
-            set: function(target, name, value)
-            {
-                if (!(name in target))
-                {
-                    console.log("Setting non-existant property '" + name + "', initial value: " + value);
-
-                    return false;
-                }
-
-                // /!\ TODO check Wen's GLShader.uniform() when it's not a number, seems more optimised
-                target[name].value = value;
-                let type = target[name].type;
-                let glFunction = POLY.CONST.uniformTypes[type];
+        let self = this;
 
 
-                if(type.indexOf('mat') === -1)
-                {
-                    if(type === 'texture')
-                    {
-                        gl[glFunction](_this.getUniformLocation(name), value, target[name].index);
+        this.uniforms = uniforms;
+
+        for(var p in self.uniforms) {
+
+            self.uniforms[p] = uniforms[p];
+
+            (function(field_name) {
+                Object.defineProperty (self, field_name, {
+                    get: function () {
+                        console.log('GET', field_name);
+                        return self.uniforms[field_name];
+                    },
+                    set: function (new_value) {
+                        console.log('SET', field_name, new_value);
+                        self.uniforms[field_name].value = new_value;
                     }
-                    else
-                    {
-                        gl[glFunction](_this.getUniformLocation(name), value);
-                    }
-                }
-                else
-                {
-                    gl[glFunction](_this.getUniformLocation(name), false, value);
-                }
+                });
+            })(p);
+        }
 
-                return true;
-            }
-        });
+        // for (var name in this.uniforms) {
+        //     Object.defineProperty(_this.uniforms, _name, {
+        //         get: function()
+        //         {
+        //             // if(uniforms[name])
+        //             // {
+        //             // console.log(name);
+        //                 return _this.uniforms[_name];
+        //             // }
+        //             // else {
+        //             //     console.log("Getting non-existant property '" + name + "'");
+        //             //
+        //             //     return undefined;
+        //             // }
+        //         },
+        //         set: function(value)
+        //         {
+        //             // if(uniforms[name])
+        //             // {
+        //                 // /!\ TODO check Wen's GLShader.uniform() when it's not a number, seems more optimised
+        //                 // uniforms[name].value = value;
+        //                 // let type = uniforms[name].type;
+        //                 // let glFunction = POLY.CONST.uniformTypes[type];
+        //                 //
+        //                 // if(type.indexOf('mat') === -1)
+        //                 // {
+        //                 //     if(type === 'texture')
+        //                 //     {
+        //                 //         gl[glFunction](_this.getUniformLocation(name), value, uniforms[name].index);
+        //                 //     }
+        //                 //     else
+        //                 //     {
+        //                 //         gl[glFunction](_this.getUniformLocation(name), value);
+        //                 //     }
+        //                 // }
+        //                 // else
+        //                 // {
+        //                 //     gl[glFunction](_this.getUniformLocation(name), false, value);
+        //                 // }
+        //
+        //                 return true;
+        //             // }
+        //         },
+        //     });
+        // }
+
+        // this.uniforms = new Proxy(uniforms, {
+        //     get: function(target, name)
+        //     {
+        //         if (!(name in target))
+        //         {
+        //             console.log("Getting non-existant property '" + name + "'");
+        //             return undefined;
+        //         }
+        //
+        //         return target[name].value;
+        //     },
+        //     set: function(target, name, value)
+        //     {
+        //         if (!(name in target))
+        //         {
+        //             console.log("Setting non-existant property '" + name + "', initial value: " + value);
+        //
+        //             return false;
+        //         }
+        //
+        //         // /!\ TODO check Wen's GLShader.uniform() when it's not a number, seems more optimised
+        //         target[name].value = value;
+        //         let type = target[name].type;
+        //         let glFunction = POLY.CONST.uniformTypes[type];
+        //
+        //
+        //         if(type.indexOf('mat') === -1)
+        //         {
+        //             if(type === 'texture')
+        //             {
+        //                 gl[glFunction](_this.getUniformLocation(name), value, target[name].index);
+        //             }
+        //             else
+        //             {
+        //                 gl[glFunction](_this.getUniformLocation(name), value);
+        //             }
+        //         }
+        //         else
+        //         {
+        //             gl[glFunction](_this.getUniformLocation(name), false, value);
+        //         }
+        //
+        //         return true;
+        //     }
+        // });
     }
 
     addAttributeLocation(name)
