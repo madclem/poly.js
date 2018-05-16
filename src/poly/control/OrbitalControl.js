@@ -57,8 +57,6 @@ class OrbitalCameraControl {
             x:0,
             y:0
         };
-
-        this._init();
     }
 
 
