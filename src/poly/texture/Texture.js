@@ -7,9 +7,11 @@ export default class Texture
 		this.gl = POLY.gl;
 		let gl = this.gl;
 
+		this._loaded = false;
 		if(isTexture)
 		{
 			this._texture = image;
+			this._loaded = true;
 		}
 		else
 		{
@@ -25,6 +27,7 @@ export default class Texture
 
 	onImageLoaded(image)
 	{
+		this._loaded = true;
 		let gl = this.gl;
 
 		gl.bindTexture(gl.TEXTURE_2D, this._texture);
