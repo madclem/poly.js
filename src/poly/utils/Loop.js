@@ -25,15 +25,16 @@ export default new class Loop
 			this.start();
 		}
 
+		this._idLoop++;
 
 		return id;
 	}
 
-	remove(func)
+	remove(id)
 	{
 		console.log('try to remove');
 		for (var i = 0; i < this._loops.length; i++) {
-			if(this._loops[i].func === func)
+			if(this._loops[i].id === id)
 			{
 				console.log('remove here');
 				this._loops.splice(i, 1);
