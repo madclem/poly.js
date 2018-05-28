@@ -12,6 +12,8 @@ export default new class GLTool
 		this.state = null;
 		this.enabledVertexAttributes = [];
 
+		this.scale = 1;
+
 		this.instancedAttributes = [];
 	}
 
@@ -150,6 +152,15 @@ export default new class GLTool
 	resize(w, h)
 	{
 		let gl = POLY.gl;
+
+		// let scale = 1;
+		// window.devicePixelRatio = 1;
+
+		let scale = window.devicePixelRatio;
+		if(scale > 2) scale = 2;
+
+		w = w * scale;
+		h = h * scale;
 		gl.canvas.width = w;
 		gl.canvas.height = h;
 
@@ -158,5 +169,7 @@ export default new class GLTool
 		gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
 
 		this.aspectRatio = w/h;
+
+		this.scale = scale;
 	}
 }
